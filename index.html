@@ -17,27 +17,26 @@
       position: relative; /* To position the floating image relative to this container */
     }
 
-    /* Logo styles with a background position */
+    /* Logo styles with background position */
     .logo {
       max-width: 180px;
       max-height: 38vh;
       cursor: pointer;
-      position: relative; /* Keep it in flow with the rest of the content */
-      z-index: 1; /* Ensure logo stays above background images */
+      position: absolute; /* Keeps the logo in place */
+      z-index: 2; /* Ensures the logo stays above the floating image */
     }
 
-    /* Floating image with Ken Burns effect */
+    /* Full-screen floating image with Ken Burns effect */
     .fade-image {
       opacity: 0;
       transition: opacity 1s ease;
-      position: absolute;
-      top: 50%; /* Center image vertically */
-      left: 50%; /* Center image horizontally */
-      transform: translate(-50%, -50%); /* Correct centering */
-      max-width: 60vw;
-      z-index: 0; /* Ensure image floats below the logo but above other content */
-
-      /* Ken Burns effect: initial zoom and slow pan */
+      position: absolute; /* Make sure it floats over the content */
+      top: 0; /* Make the photo cover the full screen */
+      left: 0;
+      width: 100vw; /* Full width of the screen */
+      height: 100vh; /* Full height of the screen */
+      object-fit: cover; /* Ensure the image covers the whole screen */
+      z-index: 1; /* Keeps the floating image below the logo */
       animation: kenBurns 10s ease-in-out infinite;
     }
 
@@ -54,7 +53,7 @@
         transform: scale(1.1) translate(-50%, -50%); /* Zoom in slightly */
       }
       100% {
-        transform: scale(1) translate(-50%, -50%); /* End back at normal size */
+        transform: scale(1) translate(-50%, -50%); /* Return to normal size */
       }
     }
   </style>
@@ -65,7 +64,7 @@
     <img id="logo" src="logos/logo1.png" alt="Logo" class="logo" />
   </a>
 
-  <!-- Floating image with Ken Burns effect -->
+  <!-- Full-screen floating image with Ken Burns effect -->
   <img id="fadeImage" src="photos/photo.jpg" alt="Fading Image" class="fade-image" />
 
   <script>
@@ -79,7 +78,7 @@
       logoImg.src = logos[current];
     }
 
-    setInterval(switchLogo, 5000); // Switch every 5 seconds
+    setInterval(switchLogo, 5000); // Switch logo every 2 seconds
 
     // Fade-in/out image logic with 10s delay before fade-in
     const fadeImg = document.getElementById("fadeImage");

@@ -11,6 +11,7 @@
       background: white;
       height: 100%;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
     }
@@ -18,20 +19,33 @@
     .logo {
       max-width: 180px;
       max-height: 38vh;
+      cursor: pointer;
+    }
+
+    .fade-image {
+      opacity: 0;
+      transition: opacity 1s ease;
+      max-width: 60vw;
+      margin-top: 40px;
+    }
+
+    .visible {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
+  <!-- Clickable logo linking to email -->
   <a href="mailto:hello@c-l-a-y.com">
     <img id="logo" src="logos/logo1.png" alt="Logo" class="logo" />
   </a>
 
-  <script>
-    const logos = [
-      "logos/logo1.png",
-      "logos/logo2.png"
-    ];
+  <!-- Image that fades in and out -->
+  <img id="fadeImage" src="photos/photo.png" alt="Fading Image" class="fade-image" />
 
+  <script>
+    // Logo switching logic
+    const logos = ["logos/logo1.png", "logos/logo2.png"];
     let current = 0;
     const logoImg = document.getElementById("logo");
 
@@ -40,7 +54,22 @@
       logoImg.src = logos[current];
     }
 
-    setInterval(switchLogo, 5000); // switch every 2 seconds
+    setInterval(switchLogo, 5000);
+
+    // Fade-in/out image logic
+    const fadeImg = document.getElementById("fadeImage");
+
+    function cycleFade() {
+      fadeImg.classList.add("visible");
+
+      // After 3s (1s fade in + 2s visible), start fade out
+      setTimeout(() => {
+        fadeImg.classList.remove("visible");
+      }, 3000);
+    }
+
+    cycleFade(); // First call
+    setInterval(cycleFade, 10000); // Every 10s
   </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clay</title>
+  <title>CLAY</title>
   <style>
     html, body {
       margin: 0;
@@ -14,21 +14,28 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      position: relative; /* To position the floating image relative to this container */
     }
 
     .logo {
       max-width: 180px;
       max-height: 38vh;
       cursor: pointer;
+      position: relative; /* Keep it in flow with the rest of the content */
+      z-index: 1; /* Ensure logo stays on top of background image */
     }
 
-    /* Fade-in/out image styles */
+    /* Floating image with Ken Burns effect */
     .fade-image {
       opacity: 0;
       transition: opacity 1s ease;
+      position: absolute;
+      top: 50%; /* Center image vertically */
+      left: 50%; /* Center image horizontally */
+      transform: translate(-50%, -50%); /* Correct centering */
       max-width: 60vw;
-      margin-top: 40px;
-
+      z-index: 0; /* Ensure image floats below the logo */
+      
       /* Ken Burns effect: initial zoom and slow pan */
       animation: kenBurns 10s ease-in-out infinite;
     }
@@ -40,13 +47,13 @@
     /* Keyframes for Ken Burns effect */
     @keyframes kenBurns {
       0% {
-        transform: scale(1) translate(0, 0); /* Start at normal size */
+        transform: scale(1) translate(-50%, -50%); /* Start at normal size */
       }
       50% {
-        transform: scale(1.1) translate(5%, 5%); /* Zoom in and pan slightly */
+        transform: scale(1.1) translate(-50%, -50%); /* Zoom in slightly */
       }
       100% {
-        transform: scale(1) translate(0, 0); /* End back at normal size */
+        transform: scale(1) translate(-50%, -50%); /* End back at normal size */
       }
     }
   </style>
@@ -57,7 +64,7 @@
     <img id="logo" src="logos/logo1.png" alt="Logo" class="logo" />
   </a>
 
-  <!-- Image that fades in and out with Ken Burns effect -->
+  <!-- Floating image with Ken Burns effect -->
   <img id="fadeImage" src="photos/photo.jpg" alt="Fading Image" class="fade-image" />
 
   <script>
@@ -84,12 +91,4 @@
         // After 3s (1s fade in + 2s visible), start fade out
         setTimeout(() => {
           fadeImg.classList.remove("visible");
-        }, 3000);
-      }, 10000); // 10 seconds before fade-in starts
-    }
-
-    cycleFade(); // First call
-    setInterval(cycleFade, 13000); // Every 13 seconds (10s delay + 3s visible)
-  </script>
-</body>
-</html>
+        }, 3000

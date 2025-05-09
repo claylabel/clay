@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clay</title>
+  <title>CLAY</title>
   <style>
     html, body {
       margin: 0;
@@ -11,49 +11,52 @@
       background: white;
       height: 100%;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      position: relative; /* To position the floating image relative to this container */
+      position: relative;
     }
 
-    /* Logo styles with background position */
+    /* Logo styles */
     .logo {
       max-width: 180px;
       max-height: 38vh;
       cursor: pointer;
-      position: absolute; /* Keeps the logo in place */
-      z-index: 2; /* Ensures the logo stays above the floating image */
+      position: absolute;
+      z-index: 2; /* Logo on top of the image */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the logo */
     }
 
-    /* Full-screen floating image with Ken Burns effect */
+    /* Full-screen floating image */
     .fade-image {
       opacity: 0;
       transition: opacity 1s ease;
-      position: absolute; /* Make sure it floats over the content */
-      top: 0; /* Make the photo cover the full screen */
+      position: absolute;
+      top: 0;
       left: 0;
-      width: 100vw; /* Full width of the screen */
-      height: 100vh; /* Full height of the screen */
+      width: 100vw;  /* Full viewport width */
+      height: 100vh; /* Full viewport height */
       object-fit: cover; /* Ensure the image covers the whole screen */
-      z-index: 1; /* Keeps the floating image below the logo */
+      z-index: 1; /* Floating image below the logo */
       animation: kenBurns 10s ease-in-out infinite;
     }
 
+    /* Visible class to make the image appear */
     .visible {
       opacity: 1;
     }
 
-    /* Keyframes for Ken Burns effect */
+    /* Ken Burns effect: slow zoom and pan */
     @keyframes kenBurns {
       0% {
-        transform: scale(1) translate(-50%, -50%); /* Start at normal size */
+        transform: scale(1) translate(-50%, -50%);
       }
       50% {
-        transform: scale(1.1) translate(-50%, -50%); /* Zoom in slightly */
+        transform: scale(1.1) translate(-50%, -50%);
       }
       100% {
-        transform: scale(1) translate(-50%, -50%); /* Return to normal size */
+        transform: scale(1) translate(-50%, -50%);
       }
     }
   </style>
@@ -78,7 +81,7 @@
       logoImg.src = logos[current];
     }
 
-    setInterval(switchLogo, 5000); // Switch logo every 2 seconds
+    setInterval(switchLogo, 5000); // Switch logo every 5 seconds
 
     // Fade-in/out image logic with 10s delay before fade-in
     const fadeImg = document.getElementById("fadeImage");
@@ -88,7 +91,7 @@
         // Fade in after 10 seconds
         fadeImg.classList.add("visible");
 
-        // After 3s (1s fade in + 2s visible), start fade out
+        // After 3 seconds (1s fade in + 2s visible), start fade out
         setTimeout(() => {
           fadeImg.classList.remove("visible");
         }, 3000);
@@ -96,7 +99,7 @@
     }
 
     cycleFade(); // First call
-    setInterval(cycleFade, 13000); // Every 13 seconds (10s delay + 3s visible)
+    setInterval(cycleFade, 13000); // Repeat every 13 seconds (10s delay + 3s visible)
   </script>
 </body>
 </html>

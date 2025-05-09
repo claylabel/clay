@@ -32,13 +32,13 @@
     .fade-image {
       opacity: 0;
       transition: opacity 1s ease;
-      position: fixed; /* Use fixed positioning to keep it in place */
+      position: fixed; /* Fixed positioning for the full screen effect */
       top: 0;
       left: 0;
       width: 100vw;  /* Full viewport width */
       height: 100vh; /* Full viewport height */
       object-fit: cover; /* Ensure the image covers the whole screen */
-      z-index: 1; /* Floating image below the logo */
+      z-index: 9999; /* Layer the image over all content */
       animation: kenBurns 10s ease-in-out infinite;
     }
 
@@ -81,7 +81,7 @@
       logoImg.src = logos[current];
     }
 
-    setInterval(switchLogo, 5000); // Switch logo every 5 seconds
+    setInterval(switchLogo, 5000); // Switch logo every 2 seconds
 
     // Fade-in/out image logic with 10s delay before fade-in
     const fadeImg = document.getElementById("fadeImage");

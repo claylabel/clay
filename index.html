@@ -73,20 +73,23 @@
 
     setInterval(switchLogo, 5000);
 
-    // Fade-in/out image logic
+    // Fade-in/out image logic with 10s delay before fade-in
     const fadeImg = document.getElementById("fadeImage");
 
     function cycleFade() {
-      fadeImg.classList.add("visible");
-
-      // After 3s (1s fade in + 2s visible), start fade out
       setTimeout(() => {
-        fadeImg.classList.remove("visible");
-      }, 3000);
+        // Fade in after 10 seconds
+        fadeImg.classList.add("visible");
+
+        // After 3s (1s fade in + 2s visible), start fade out
+        setTimeout(() => {
+          fadeImg.classList.remove("visible");
+        }, 3000);
+      }, 10000); // 10 seconds before fade-in starts
     }
 
     cycleFade(); // First call
-    setInterval(cycleFade, 10000); // Every 10s
+    setInterval(cycleFade, 13000); // Every 13 seconds (10s delay + 3s visible)
   </script>
 </body>
 </html>

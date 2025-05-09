@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>CLAY</title>
+  <title>Clay</title>
   <style>
     html, body {
       margin: 0;
@@ -17,12 +17,13 @@
       position: relative; /* To position the floating image relative to this container */
     }
 
+    /* Logo styles with a background position */
     .logo {
       max-width: 180px;
       max-height: 38vh;
       cursor: pointer;
       position: relative; /* Keep it in flow with the rest of the content */
-      z-index: 1; /* Ensure logo stays on top of background image */
+      z-index: 1; /* Ensure logo stays above background images */
     }
 
     /* Floating image with Ken Burns effect */
@@ -34,8 +35,8 @@
       left: 50%; /* Center image horizontally */
       transform: translate(-50%, -50%); /* Correct centering */
       max-width: 60vw;
-      z-index: 0; /* Ensure image floats below the logo */
-      
+      z-index: 0; /* Ensure image floats below the logo but above other content */
+
       /* Ken Burns effect: initial zoom and slow pan */
       animation: kenBurns 10s ease-in-out infinite;
     }
@@ -78,7 +79,7 @@
       logoImg.src = logos[current];
     }
 
-    setInterval(switchLogo, 5000);
+    setInterval(switchLogo, 5000); // Switch every 5 seconds
 
     // Fade-in/out image logic with 10s delay before fade-in
     const fadeImg = document.getElementById("fadeImage");
@@ -91,4 +92,12 @@
         // After 3s (1s fade in + 2s visible), start fade out
         setTimeout(() => {
           fadeImg.classList.remove("visible");
-        }, 3000
+        }, 3000);
+      }, 10000); // 10 seconds before fade-in starts
+    }
+
+    cycleFade(); // First call
+    setInterval(cycleFade, 13000); // Every 13 seconds (10s delay + 3s visible)
+  </script>
+</body>
+</html>
